@@ -26,10 +26,10 @@ function startGame() {
   gameStarted = true;
 }
 
-// Evento de pressionamento de tecla para começar
-document.addEventListener('keydown', () => {
+// Evento de toque na tela para começar o jogo
+document.addEventListener('touchstart', () => {
   if (!gameStarted) {
-    startGame(); // Inicia o jogo ao pressionar uma tecla
+    startGame(); // Inicia o jogo ao tocar na tela
   }
 });
 
@@ -107,14 +107,15 @@ function checkKeyPress() {
   });
 }
 
-// Função para verificar a entrada de teclado
+// Função para verificar a entrada de toque
 const keys = [];
-document.addEventListener('keydown', (e) => {
-  if (!keys.includes(e.key)) keys.push(e.key);
-});
-document.addEventListener('keyup', (e) => {
-  const index = keys.indexOf(e.key);
-  if (index > -1) keys.splice(index, 1);
+document.addEventListener('touchstart', (e) => {
+  // Lógica para detectar a posição do toque e "simular" o pressionamento das teclas
+  const touchX = e.touches[0].clientX; // Posição do toque no eixo X
+  const touchY = e.touches[0].clientY; // Posição do toque no eixo Y
+  
+  // Aqui você pode definir a área de cada seta e verificar se o toque está dentro dessa área.
+  keys.push([touchX, touchY]); // Exemplo de armazenar a posição do toque (será necessário personalizar isso)
 });
 
 // Loop do jogo
